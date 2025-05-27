@@ -1,0 +1,33 @@
+pipeline {
+	agent any
+
+	stages {
+		stage('Checkout') {
+			steps {
+				git branch: 'main', url: 'https://github.com/Nidhish7/Python-Projects.git'
+			}
+		}
+		stage('Set up Environment') {
+			steps {
+				sh '''
+					cd WeatherApp
+					python3 -m venv venv
+					source venv/bin/activate
+					pip install -r requirements.txt
+				'''
+			}
+		}
+
+		stage('Run App') {
+			steps {
+				sh '''
+
+					cd  WeatherApp
+					source venv/bin/activate
+					nohup flask run --host=0.0.0.0 &
+				'''
+
+			}
+		}
+	}
+}
