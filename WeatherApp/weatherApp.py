@@ -23,7 +23,16 @@ def getWeather(city):
 
         main = data["main"]
         weather = data["weather"][0]
-
+        # Return data as dictionary
+        return {
+            "city": city,
+            "temperature": main["temp"],
+            "humidity": main["humidity"],
+            "description": weather["description"]
+        }
+    else:
+        return None
+'''
         # Display weather details
         print(f"Weather in {city}:")
         print(f"Temperature: {main['temp']}°C")
@@ -32,9 +41,18 @@ def getWeather(city):
 
     else:
         print(f"City {city} not found.")
+'''
+
 
 
 # Main function to run the app
 if __name__ == "__main__":
     city = input("Enter the city name: ")
-    getWeather(city)
+    weather = getWeather(city)
+    if weather:
+        print(f"Weather in {weather['city']}:")
+        print(f"Temperature: {weather['temperature']}°C")
+        print(f"Humidity: {weather['humidity']}%")
+        print(f"Weather: {weather['description']}")
+    else:
+        print(f"City {city} not found.")
